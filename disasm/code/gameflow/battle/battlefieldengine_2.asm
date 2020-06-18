@@ -406,6 +406,12 @@ pt_SpellRanges: dc.l SpellRange0
                 dc.l SpellRange1
                 dc.l SpellRange2
                 dc.l SpellRange3
+                if (RANGE_EXPANSION=1)
+                dc.l SpellRange4
+                dc.l SpellRange5
+                dc.l SpellRange6
+                dc.l SpellRange7
+                endif
 SpellRange0:    dc.b 1
                 dc.b 0
                 dc.b 0
@@ -435,6 +441,9 @@ SpellRange2:    dc.b 8
                 dc.b 0
                 dc.b 1
                 dc.b $FF
+                if (RANGE_EXPANSION=1)
+                wordAlign
+                else
 SpellRange3:    dc.b $C
                 dc.b 0
                 dc.b 3
@@ -460,6 +469,7 @@ SpellRange3:    dc.b $C
                 dc.b 1
                 dc.b $FF
                 dc.b 2
+                endif
 
 ; =============== S U B R O U T I N E =======================================
 

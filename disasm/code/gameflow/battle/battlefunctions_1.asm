@@ -941,16 +941,7 @@ HandleAfterTurnEffects:
                 andi.w  #STATUSEFFECTS_MASK_POISON,d1
                 beq.s   @UpdateStats
                 move.w  d0,((TEXT_NAME_INDEX_1-$1000000)).w
-                
-                if (PERCENT_POISON_DAMAGE>=1)
-                jsr     GetMaxHP
-                mulu.w  #PERCENT_POISON_DAMAGE,d1
-                divu.w  #100,d1
-                andi.l  #$FFFF,d1
-                else
                 moveq   #POISON_DAMAGE,d1 ; constant poison damage
-                endif
-                
                 move.l  d1,((TEXT_NUMBER-$1000000)).w
                 txt     $133            ; "{CLEAR}{NAME} gets damaged{N}by {#} because of the poison.{D3}"
                 jsr     j_DecreaseCurrentHP
@@ -2243,9 +2234,7 @@ loc_252A6:
                 move.l  ((SECONDS_COUNTER-$1000000)).w,((SECONDS_COUNTER_FROM_SRAM-$1000000)).w
                 setFlg  $58             ; checks if a game has been saved for copying purposes ? (or if saved from battle?)
                 move.w  ((SAVE_SLOT_INDEX-$1000000)).w,d0
-                enableSram
                 jsr     (SaveGame).l
-                disableSram
                 tst.b   ((DEBUG_MODE_ACTIVATED-$1000000)).w
                 beq.w   byte_252E6
                 btst    #INPUT_BIT_START,((P1_INPUT-$1000000)).w
@@ -2555,20 +2544,10 @@ AddRandomizedAGItoTurnOrder:
                 jsr     (GenerateRandomNumber).w
                 subq.w  #1,d7
                 add.w   d7,d1
-                
-                if (BUGFIX_SKIPPED_TURNS=1)
-                tst.b   d1
-                bpl.s   @AddTurnData
-                moveq   #CHAR_STATCAP_AGI_CURRENT,d1 ; cap randomized AGI
-                endif
-@AddTurnData:
-                
                 move.b  d0,(a0)+
                 move.b  d1,(a0)+
                 cmpi.w  #128,d3
                 blt.s   @Return
-                
-                ; Add a second turn if AGI >= 128
                 move.w  d3,d1
                 andi.w  #CHAR_STATCAP_AGI_CURRENT,d1
                 mulu.w  #5,d1
@@ -2579,14 +2558,6 @@ AddRandomizedAGItoTurnOrder:
                 add.w   d7,d1
                 jsr     (GenerateRandomNumber).w
                 sub.w   d7,d1
-                
-                if (BUGFIX_SKIPPED_TURNS=1)
-                tst.b   d1
-                bpl.s   @AddSecondTurnData
-                moveq   #CHAR_STATCAP_AGI_CURRENT,d1 ; cap randomized AGI
-                endif
-@AddSecondTurnData:
-                
                 move.b  d0,(a0)+
                 move.b  d1,(a0)+
 @Return:

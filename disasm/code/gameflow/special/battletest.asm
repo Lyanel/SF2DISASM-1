@@ -8,16 +8,6 @@ DebugModeBattleTest:
                 
                 move.b  #$FF,((DEBUG_MODE_ACTIVATED-$1000000)).w
                 move.b  #$FF,((SPECIAL_TURBO_CHEAT-$1000000)).w
-                
-                if (FORCE_MEMBERS_EXPANSION=1)
-                move.w  #COM_ALLIES_COUNTER-1,d1
-                moveq   #1,d0
-@JoinForce_Loop:
-                
-                bsr.w   JoinForce
-                addq.w  #1,d0
-                dbf     d1,@JoinForce_Loop
-                else
                 moveq   #ALLY_SARAH,d0
                 bsr.w   j_JoinForce
                 moveq   #ALLY_CHESTER,d0
@@ -76,8 +66,6 @@ DebugModeBattleTest:
                 bsr.w   j_JoinForce
                 moveq   #ALLY_CLAUDE,d0
                 bsr.w   j_JoinForce
-                endif
-                
                 moveq   #0,d0
                 move.w  #$63,d1 
                 bsr.w   j_SetBaseAGI
@@ -138,7 +126,7 @@ loc_7820:
                 clr.w   d1
                 move.b  d0,d1
                 mulu.w  #7,d0
-                conditionalPc lea,BattleMapCoordinates,a0
+                lea     BattleMapCoordinates(pc), a0
                 nop
                 adda.w  d0,a0
                 move.b  (a0)+,d0
