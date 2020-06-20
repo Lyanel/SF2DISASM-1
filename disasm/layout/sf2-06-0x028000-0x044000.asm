@@ -74,4 +74,7 @@ TextBankTreeData:
                 incbin "data/scripting/text/huffmantrees.bin"
                 include "data\scripting\text\entries.asm"    ; Textbank entries
                 include "code\specialscreens\credits\gamestaff.asm"    ; Game Staff
+                if (RANGE_EXPANSION=1)
+                include "code\gameflow\battle\spellrangehack.asm"    ; Range 3 to 7 for spell & items..
+                endif
                 align $44000
