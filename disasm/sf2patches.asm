@@ -1,1 +1,0 @@
-RANGE_EXPANSION: equ 0                  ; 0 = OFF, 1 = ON. Max range for Spell & Item incerase from 3 to 7.
