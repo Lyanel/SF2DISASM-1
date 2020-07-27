@@ -11,3 +11,4 @@ EIGHT_CHARACTERS_MEMBER_NAMES: equ 0            ; 0 = OFF, 1 = ON
 FULL_CLASS_NAMES: equ 0                         ; 0 = OFF, 1 = ON
 BUGFIX_INCREASE_DOUBLE_RESETS_COUNTER: equ 0    ; 0 = OFF, 1 = ON
 BUGFIX_GODDESS_STAFF_DEALS_ABUSE: equ 0         ; 0 = OFF, 1 = ON
+RANGE_EXPANSION: equ 0                          ; 0 = OFF, 1 = ON. Max range for Spell & Item incerase from 3 to 7.

@@ -84,4 +84,7 @@ TextBankTreeData:
                 includeIfExpandedRom "data\maps\global\savepointmapcoords.asm"    ; Save point map coords
                 includeIfExpandedRom "data\maps\global\raftresetmapcoords.asm"    ; Raft reset map coords
                 alignIfExpandedRom $43C00
+                if (RANGE_EXPANSION=1)
+                include "code\gameflow\battle\spellrangehack.asm"    ; Range 3 to 7 for spell & items..
+                endif
                 align $44000
